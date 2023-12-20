@@ -1,0 +1,3 @@
+pour le classique: cat /tmp/payload - | ./bonus0
+pour le test: export 'str=/bin/cat /tmp/payload > /tmp/a' into ./bonus0 < /tmp/payload
+dans les 2 cas verifie les offset et addresses, ya des trucs qui peuvent bouger
