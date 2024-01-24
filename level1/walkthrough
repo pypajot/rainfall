@@ -1,0 +1,1 @@
+ghidra analysis to get payload and offset => craft_payload to tmp, cat /tmp/payload - | ./level1, cat /home/user/level2/.pass

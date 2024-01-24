@@ -1,0 +1,1 @@
+ same as 1 with craft_payload7, payload and payload 2 as argument : ./level7 $(cat /tmp/payload) $(cat /tmp/payload2)

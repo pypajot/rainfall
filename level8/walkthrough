@@ -1,0 +1,1 @@
+exec level8 entry: "auth ", then "service 0123456789abcdef", then login then cat /home/user/level9/.pass
