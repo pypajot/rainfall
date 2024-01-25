@@ -14,13 +14,11 @@ void m(void *param_1,int param_2,char *param_3,int param_4,int param_5)
 
 void main(int ac,char **av)
 {
-  char *__dest;
-  code **func;
-  
-  __dest = (char *)malloc(0x40);
-  func = (code **)malloc(4);
-  *func = m;
-  strcpy(__dest,av[1]);
-  (**func)();
+  char *dest = malloc(0x40);
+  void **fn_ptr = malloc(4);
+
+  *fn_ptr = m;
+  strcpy(dest, av[1]);
+  (**fn_ptr)();
   return;
 }

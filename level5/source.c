@@ -2,9 +2,8 @@
 
 void o(void)
 {
-  	x("/bin/sh");
-                    // WARNING: Subroutine does not return
-  _exit(1);
+  system("/bin/sh");
+  exit(1);
 }
 
 void n(void)
@@ -13,7 +12,6 @@ void n(void)
   
   fgets(buffer,0x200,(FILE *)stdin);
   printf(buffer);
-                    // WARNING: Subroutine does not return
   exit(1);
 }
 

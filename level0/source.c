@@ -7,18 +7,11 @@
 
 int main(int ac, char **av)
 {
-  int iVar1;
-  int command;
-  int useless;
-  int user_id;
-  int group_id;
-  
-  iVar1 = atoi(av[1]);
-  if (iVar1 == 423) {
-    command = strdup("/bin/sh");
-    useless = 0;
-    group_id = getegid();
-    user_id = geteuid();
+  int nbr_arg = atoi(av[1]);
+  if (nbr_arg == 423) {
+    int command = strdup("/bin/sh");
+    int group_id = getegid();
+    int user_id = geteuid();
     setresgid(group_id,group_id,group_id);
     setresuid(user_id,user_id,user_id);
     execv("/bin/sh",&command);
