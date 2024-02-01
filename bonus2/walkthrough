@@ -1,0 +1,2 @@
+./bonus2 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa $(cat /tmp/payload)
+LANG=fi
